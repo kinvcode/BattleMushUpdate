@@ -15,12 +15,14 @@ SOURCES += \
     filedownloader.cpp \
     main.cpp \
     mainwindow.cpp \
-    process/process.cpp
+    process/process.cpp \
+    requestsync.cpp
 
 HEADERS += \
     filedownloader.h \
     mainwindow.h \
-    process/process.h
+    process/process.h \
+    requestsync.h
 
 FORMS += \
     mainwindow.ui

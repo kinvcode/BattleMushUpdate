@@ -15,8 +15,12 @@ void FileDownloader::startDownload()
 
 void FileDownloader::onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal)
 {
-    // 处理下载进度，可以根据需要进行显示
-    qDebug() << "Download Progress: " << bytesReceived << " / " << bytesTotal;
+    if (bytesTotal > 0) {
+        int progress = static_cast<int>((bytesReceived * 100) / bytesTotal);
+        emit downloadProgressUpdated(progress);
+        // 处理下载进度，可以根据需要进行显示
+        qDebug() << "Download Progress: " << bytesReceived << " / " << bytesTotal;
+    }
 }
 
 void FileDownloader::onDownloadFinished(QNetworkReply *reply)
@@ -32,15 +36,24 @@ void FileDownloader::onDownloadFinished(QNetworkReply *reply)
             qDebug() << "Download finished. File saved to: " << filePath;
         } else {
             qDebug() << "Error: Could not open file for writing.";
+            QMessageBox::information(NULL,"Vega","下载失败，无法保存文件!");
         }
     } else {
         // 处理下载错误
         qDebug() << "Error: " << reply->errorString();
+        QMessageBox::information(NULL,"Vega","下载失败，请确认云存储是否存在该文件!");
     }
 
-    // 释放资源
-    reply->deleteLater();
-    networkManager.deleteLater();
-    QMessageBox::information(NULL,"Vega","Vega更新完毕!");
-    QCoreApplication::quit();  // 结束应用程序
+    // 释放资源 会报错
+    // reply->deleteLater();
+    // networkManager.deleteLater();
+
+    // 弹出消息框
+    int ret = QMessageBox::information(
+        nullptr, "Vega", "Vega更新完毕!", QMessageBox::Ok);
+
+    // 判断用户点击的按钮
+    if (ret == QMessageBox::Ok) {
+        QCoreApplication::quit();  // 结束应用程序
+    }
 }

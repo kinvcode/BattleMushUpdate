@@ -22,6 +22,9 @@ private slots:
     void onDownloadProgress(qint64 bytesReceived, qint64 bytesTotal);
     void onDownloadFinished(QNetworkReply *reply);
 
+signals:
+    void downloadProgressUpdated(int progress);
+
 private:
     QNetworkAccessManager networkManager;
     QNetworkReply *networkReply = nullptr;

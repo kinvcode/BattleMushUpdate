@@ -41,7 +41,7 @@ void FileDownloader::onDownloadFinished(QNetworkReply *reply)
     } else {
         // 处理下载错误
         qDebug() << "Error: " << reply->errorString();
-        QMessageBox::information(NULL,"Vega","下载失败，请确认云存储是否存在该文件!");
+        QMessageBox::information(NULL,"BattleMush","下载失败，请确认云存储是否存在该文件!");
     }
 
     // 释放资源 会报错
@@ -50,7 +50,7 @@ void FileDownloader::onDownloadFinished(QNetworkReply *reply)
 
     // 弹出消息框
     int ret = QMessageBox::information(
-        nullptr, "Vega", "Vega更新完毕!", QMessageBox::Ok);
+        nullptr, "BattleMush", "BattleMush更新完毕!", QMessageBox::Ok);
 
     // 判断用户点击的按钮
     if (ret == QMessageBox::Ok) {

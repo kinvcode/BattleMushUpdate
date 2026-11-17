@@ -18,5 +18,7 @@ public:
     QProgressBar *progressBar; // 添加进度条成员变量
 private:
     Ui::MainWindow *ui;
+
+    bool deleteOldProgram();
 };
 #endif // MAINWINDOW_H
